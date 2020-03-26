@@ -6,14 +6,14 @@ class HTTP::Request
 end
 
 class HTTP::Client
-  private def exec_internal(request : HTTP::Request)
-    response = exec_internal(request) { |res| res }
-    response.tap do |response|
-      response.consume_body_io
-      response.headers.delete("Transfer-encoding")
-      response.headers["Content-length"] = response.body.bytesize.to_s
-    end
-  end
+  # private def exec_internal(request : HTTP::Request)
+  #   response = exec_internal(request) { |res| res }
+  #   # response.tap do |response|
+  #   #   response.consume_body_io
+  #   #   response.headers.delete("Transfer-encoding")
+  #   #   response.headers["Content-length"] = response.body.bytesize.to_s
+  #   # end
+  # end
 
   private def exec_internal(request : HTTP::Request, &block : Response -> T) : T forall T
     request.scheme = "https" if tls?
